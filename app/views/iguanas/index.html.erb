@@ -1,0 +1,7 @@
+<h2>ALL THE IGUANAS!!!!1!</h2>
+
+<ul>
+	<% @iguanas.each do |ig|%>
+	<li><%= link_to ig.name, iguana_url(ig) %></li>
+	<% end %>
+</ul>
