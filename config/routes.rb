@@ -2,6 +2,8 @@ TheIguanas::Application.routes.draw do
   root :to => "iguanas#index"
 
   resources :iguanas, :except => [:destroy]
+  resources :users, :only => [:new, :create, :show]
+  resource :session
 
   resources :iguana_house_cleaning_requests, :only => [:new, :create] do
     member do
