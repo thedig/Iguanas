@@ -1,0 +1,10 @@
+<h2>EDIT THE IGUANA</h2>
+
+<% unless @errors.nil?%>
+	<ul><% @errors.each do |error|%>
+		<li><%= error%></li>
+	<%end%>
+	</ul>
+<%end%>
+
+<%= render "form", :iguana => @iguana, :action => :edit%>

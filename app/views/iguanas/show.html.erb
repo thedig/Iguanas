@@ -1,11 +1,54 @@
 <h2>The is <%= @iguana.name %> the iguana</h2>
 
+
+<h2>VITAL IGUANA DETAILS</h2>
 <table>
-
 	<tr>
-		<td><%= @iguana.sex == "F" ? "She" : "He" %> is <%= @iguana.age %> years old.
-
+		<th>Attribute</th>
+		<th>VITAL INFORMATION</th>
+	</tr>
 	<tr>
-		<td>
+		<td>Name</td>
+		<td><%= @iguana.name.upcase %>
+	</tr>
+	<tr>
+		<td>Age</td>
+		<td><%= @iguana.age %>
+	</tr>
+	<tr>
+		<td>Color</td>
+		<td><%= @iguana.color.upcase %>
+	</tr>
+	<tr>
+		<td>Sex</td>
+		<td><%= @iguana.sex.upcase %>
+	</tr>
+	<tr>
+		<td>Birthdate</td>
+		<td><%= @iguana.birth_date %>
+	</tr>
+</table>
 
-</p>
+<h2>REQUESTS FOR THE IGUANA</h2>
+<table>
+	<tr>
+		<th>IDENTIFICATION OF THE REQUEST</th>
+		<th>DATE OF START</th>
+		<th>DATE OF END</th>
+		<th>DECISION OF THE IGUANA</th>
+	</tr>
+	<% @requests.each do |request| %>
+	<tr>
+		<td><%= request.id%></td>
+		<td><%= request.start_date%></td>
+		<td><%= request.end_date%></td>
+		<td><%= request.status%></td>
+		<td><%= button_to "Approve",
+				approve_iguana_house_cleaning_request_url(request), :method => :post %></td>
+		<td><%= button_to "Deny",
+						deny_iguana_house_cleaning_request_url(request), :method => :post %></td>
+	</tr>
+	<% end %>
+</table>
+
+<%= link_to "EDIT THE IGUANA", edit_iguana_url(@iguana)%>

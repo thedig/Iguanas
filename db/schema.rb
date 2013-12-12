@@ -11,7 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131211212415) do
+ActiveRecord::Schema.define(:version => 20131211230235) do
+
+  create_table "iguana_house_cleaning_requests", :force => true do |t|
+    t.integer  "iguana_id",  :null => false
+    t.date     "start_date", :null => false
+    t.date     "end_date",   :null => false
+    t.string   "status",     :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "iguana_house_cleaning_requests", ["iguana_id"], :name => "index_iguana_house_cleaning_requests_on_iguana_id"
 
   create_table "iguanas", :force => true do |t|
     t.integer  "age",        :null => false

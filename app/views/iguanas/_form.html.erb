@@ -1,0 +1,48 @@
+<% unless @errors.nil?%>
+	<ul><% @errors.each do |error|%>
+		<li><%= error%></li>
+	<%end%>
+	</ul>
+<%end%>
+
+<% action_url = (action == :edit) ? iguana_url(@iguana) : iguanas_url%>
+<% submit_value = (action == :edit) ? "UPDATE THE IGUANA" : "CREATE THE IGUANA"%>
+
+<form action=<%=action_url%> method = "POST">
+	<% if @iguana.persisted? %>
+		<input type="hidden" name="_method" value="PUT">
+	<% end %>
+
+	<label for="iguana_name">NAME</label>
+	<input type="text" name="iguana[name]" id="iguana_name" value=<%= @iguana.name %>>
+	<br>
+	<label for="iguana_color">COLOR</label>
+	<select name="iguana[color]" id="iguana_color">
+		<% if action == :new %>
+		<option value="" selected></option>
+		<% end %>
+		<% Iguana::COLORS.each do |color|%>
+		<option value="<%= color %>"
+				<%= "selected" if @iguana && @iguana.color == color%> >
+				<%= color.upcase%>
+		</option>
+		<% end %>
+	</select>
+	<br>
+	<label for="iguana_bdate">DATE OF BIRTH</label>
+	<input type="text" name="iguana[birth_date]" id="iguana_bdate"
+			value=<%= @iguana.birth_date %>>
+	<br>
+	<label for="iguana_age">AGE</label>
+	<input type="text" name="iguana[age]" id="iguana_age"
+			value=<%= @iguana.age %>>
+	<br>
+	<label for="iguana_sex">SEX</label>
+	<select name="iguana[sex]" id="iguana_sex">
+		<option value="M" <%= "selected" if @iguana.sex == "M"%>>M</option>
+		<option value="F" <%= "selected" if @iguana.sex == "F"%>>F</option>
+	</select>
+	<br>
+
+	<input type="submit" value="UPDATE THE IGUANA">
+</form>

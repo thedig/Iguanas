@@ -1,0 +1,28 @@
+<% unless @errors.nil?%>
+	<ul><% @errors.each do |error|%>
+		<li><%= error%></li>
+	<%end%>
+	</ul>
+<%end%>
+
+<form action=<%=iguana_house_cleaning_requests_url%> method = "POST">
+
+	<label for="iguana_chosen">CHOOSE YOUR IGUANA</label>
+	<select name="request[iguana_id]" id="iguana_chosen">
+		<% @iguanas.each do |iguana|%>
+		<option value="<%= iguana.id %>">
+				<%= iguana.name.upcase%>
+		</option>
+		<% end %>
+	</select>
+
+	<br>
+	<label for="start_date">DATE OF START</label>
+	<input type="date" name="request[start_date]" id="start_date">
+	<br>
+	<label for="end_date">DATE OF THE END</label>
+	<input type="date" name="request[end_date]" id="end_date">
+	<br>
+
+	<input type="submit" value="REQUEST THE IGUANA">
+</form>

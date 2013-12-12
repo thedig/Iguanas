@@ -22,5 +22,6 @@ class Iguana < ActiveRecord::Base
   validates :age, :numericality => :true
   validates :sex, :inclusion => ["M", "F"]
 
+  has_many :iguana_house_cleaning_requests, :dependent => :destroy
 
 end
