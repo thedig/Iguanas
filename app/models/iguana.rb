@@ -23,5 +23,10 @@ class Iguana < ActiveRecord::Base
   validates :sex, :inclusion => ["M", "F"]
 
   has_many :iguana_house_cleaning_requests, :dependent => :destroy
+  belongs_to(:owner,
+    :primary_key => :id,
+    :foreign_key => :user_id,
+    :class_name => "User"
+    )
 
 end

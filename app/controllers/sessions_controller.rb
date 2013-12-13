@@ -2,8 +2,13 @@ class SessionsController < ApplicationController
 
   def create
     @user = User.find_by_credentials(params[:session])
-    login!(@user)
-    redirect_to iguanas_url
+    if @user
+      login!(@user)
+      redirect_to iguanas_url
+    else
+      flash.now[:notices] = ["Invalid username / password."]
+      render :new
+    end
   end
 
   def destroy

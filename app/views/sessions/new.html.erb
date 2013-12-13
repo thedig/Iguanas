@@ -1,0 +1,17 @@
+
+<h2> Login </h2>
+
+<form action="/session" method="POST">
+	<label for "user_name">Enter User Name</label>
+	<input type ="text" id="user_name" name="session[user_name]">
+
+	<br>
+	<label for "user_name">Enter Password</label>
+	<input type="password" id="password" name="session[password]">
+
+	<br>
+	<input type="submit" value="Log in">
+
+</form>
+<br>
+<%= link_to "CREATE A NEW USER", new_user_url%>

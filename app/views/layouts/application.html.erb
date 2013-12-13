@@ -6,6 +6,19 @@
 </head>
 <body>
 
+	<% flash[:notices].try(:each) do |msg| %>
+	  <%= msg %>
+	<% end %>
+
+
+	<% if logged_in? %>
+		<h2>WELCOME <%= @current_user.user_name.upcase %>!!!!!!</h2>
+		<%= button_to "Log Out", session_url, :method => :delete %>
+	<% else %>
+		<h2>GO SIGN IN NOW</h2>
+		<%= link_to "Sign In", new_session_url %>
+	<% end %>
+
 <%= yield %>
 
 </body>

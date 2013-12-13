@@ -14,13 +14,19 @@ class User < ActiveRecord::Base
   attr_accessible :user_name, :password
 
   validates :user_name, :password_digest, :session_token, :presence => true
-  validates :session_token, :uniqueness => true
+  validates :user_name, :session_token, :uniqueness => true
+  validates :password, :presence => true, :length => {:minimum => 6}, :on => :create
 
   before_validation :reset_session_token, :on => :create
 
+  has_many :iguanas
+
   def self.find_by_credentials(user_params)
     user = User.find_by_user_name(user_params[:user_name])
-    user.is_password?(user_params[:password]) ? user : nil
+    return user if user && user.is_password?(user_params[:password])
+    nil
+    # return nil if user.nil?
+    # user.is_password?(user_params[:password]) ? user : nil
   end
 
   def is_password?(pt)
@@ -28,6 +34,7 @@ class User < ActiveRecord::Base
   end
 
   def password=(pt)
+    @password = pt
     self.password_digest = BCrypt::Password.create(pt)
   end
 
@@ -40,7 +47,9 @@ class User < ActiveRecord::Base
     self.save!
   end
 
+  private
 
+  attr_reader :password
 
 
 end

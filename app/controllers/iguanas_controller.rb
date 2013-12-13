@@ -1,4 +1,6 @@
 class IguanasController < ApplicationController
+  before_filter :require_current_user!, :except => [:index, :show]
+  before_filter :require_owner, :only => [:edit, :update]
 
   def index
     @iguanas = Iguana.all
@@ -7,6 +9,7 @@ class IguanasController < ApplicationController
 
   def create
     @iguana = Iguana.new(params[:iguana])
+    @iguana.user_id = @current_user.id
     if @iguana.save
       redirect_to iguana_url(@iguana)
     else
@@ -40,4 +43,22 @@ class IguanasController < ApplicationController
       render :edit
     end
   end
+
+  private
+
+  def is_owner?
+    @is_owner = (current_user.id == Iguana.find(params[:id]).user_id) if @is_owner.nil?
+    @is_owner
+  end
+
+  def require_owner
+    unless is_owner?
+      flash[:notices] = ["You can only edit your own iguanas"]
+      redirect_to iguanas_url
+    end
+  end
+
+
+
+
 end

@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     if @user.save
       login!(@user)  #define this
       flash[:messages] = ["User created!"]
-      redirect_to user_url(@user)
+      redirect_to iguanas_url
     else
       flash.now[:errors] = @user.errors.full_messages
       render :new

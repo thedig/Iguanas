@@ -1,4 +1,4 @@
-<h2>The is <%= @iguana.name %> the iguana</h2>
+<h2>This is <%= @iguana.name.upcase %> the iguana</h2>
 
 
 <h2>VITAL IGUANA DETAILS</h2>
@@ -43,10 +43,15 @@
 		<td><%= request.start_date%></td>
 		<td><%= request.end_date%></td>
 		<td><%= request.status%></td>
-		<td><%= button_to "Approve",
-				approve_iguana_house_cleaning_request_url(request), :method => :post %></td>
-		<td><%= button_to "Deny",
-						deny_iguana_house_cleaning_request_url(request), :method => :post %></td>
+		<% if request.status == "PENDING" && is_owner?%>
+			<td><%= button_to "Approve",
+				approve_iguana_house_cleaning_request_url(request), :method => :post %>
+			</td>
+			<td><%= button_to "Deny",
+				deny_iguana_house_cleaning_request_url(request), :method => :post %>
+			</td>
+		<% end %>
+
 	</tr>
 	<% end %>
 </table>
