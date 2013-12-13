@@ -5,7 +5,6 @@
 #  id              :integer          not null, primary key
 #  user_name       :string(255)      not null
 #  password_digest :string(255)      not null
-#  session_token   :string(255)      not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #
@@ -20,6 +19,7 @@ class User < ActiveRecord::Base
   before_validation :reset_session_token, :on => :create # probably not necessary
 
   has_many :iguanas
+  has_many :sessions
 
   def self.find_by_credentials(user_params)
     user = User.find_by_user_name(user_params[:user_name])
