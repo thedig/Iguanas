@@ -3,8 +3,11 @@
 <head>
   <title>TheIguanas</title>
   <%= csrf_meta_tags %>
+	<%= stylesheet_link_tag "application", :media => "all" %>
 </head>
 <body>
+
+	<img src="http://funkman.org/animal/reptile/iguana1.jpg" width= 50% height= 50%>
 
 	<% flash[:notices].try(:each) do |msg| %>
 	  <%= msg %>
