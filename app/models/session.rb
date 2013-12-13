@@ -17,7 +17,11 @@ class Session < ActiveRecord::Base
 
   belongs_to :user
 
-  def terminate
+  def self.generate_token
+    SecureRandom.urlsafe_base64
+  end
+
+  def terminate!
     self.delete
   end
 
