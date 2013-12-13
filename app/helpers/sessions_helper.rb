@@ -1,22 +1,24 @@
 module SessionsHelper
 
-  def login!(session)
-    if session.save
-      session[:session_token] = session.token
+  def login!(session_obj)
+    if session_obj.save
+      session[:session_token] = session_obj.token
     else
       flash.now[:notices] = ["Invalid session."]
     end
   end
 
-  def logout!(session)
-    return nil if session.nil?
-    session.terminate!
-    session[:session_token] = nil
+  def logout!(session_obj)
+    return nil if session_obj.nil?
+    if session_obj.id == current_session.id
+      session[:session_token] = nil
+    end
+    session_obj.terminate!
   end
 
   def current_user
-    return nil if session[:session_token].nil?
-    @current_user ||= Session.find_by_token(session[:session_token]).user
+    return nil if current_session.nil?
+    @current_user ||= current_session.user
   end
 
   def current_session

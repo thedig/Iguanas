@@ -12,11 +12,9 @@
 class User < ActiveRecord::Base
   attr_accessible :user_name, :password
 
-  validates :user_name, :password_digest, :session_token, :presence => true
-  validates :user_name, :session_token, :uniqueness => true
+  validates :user_name, :password_digest, :presence => true
+  validates :user_name, :uniqueness => true
   validates :password, :presence => true, :length => {:minimum => 6}, :on => :create
-
-  before_validation :reset_session_token, :on => :create # probably not necessary
 
   has_many :iguanas
   has_many :sessions
@@ -25,8 +23,6 @@ class User < ActiveRecord::Base
     user = User.find_by_user_name(user_params[:user_name])
     return user if user && user.is_password?(user_params[:password])
     nil
-    # return nil if user.nil?
-    # user.is_password?(user_params[:password]) ? user : nil
   end
 
   def is_password?(pt)

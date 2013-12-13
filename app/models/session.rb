@@ -22,7 +22,7 @@ class Session < ActiveRecord::Base
   end
 
   def terminate!
-    self.delete
+    self.destroy
   end
 
 end

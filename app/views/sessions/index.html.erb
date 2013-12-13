@@ -1,0 +1,12 @@
+
+<table>
+<% @sessions.each do |ses| %>
+	<tr>
+		<td>
+			<%= ses.id %>
+		</td>
+		<td>
+			<%= button_to "Log out of session", session_url(ses), :method => :delete%>
+		</td>
+	</tr>
+<% end %>
