@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   validates :user_name, :session_token, :uniqueness => true
   validates :password, :presence => true, :length => {:minimum => 6}, :on => :create
 
-  before_validation :reset_session_token, :on => :create
+  before_validation :reset_session_token, :on => :create # probably not necessary
 
   has_many :iguanas
 

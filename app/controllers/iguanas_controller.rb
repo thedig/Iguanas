@@ -46,19 +46,12 @@ class IguanasController < ApplicationController
 
   private
 
-  def is_owner?
-    @is_owner = (current_user.id == Iguana.find(params[:id]).user_id) if @is_owner.nil?
-    @is_owner
-  end
-
   def require_owner
     unless is_owner?
       flash[:notices] = ["You can only edit your own iguanas"]
       redirect_to iguanas_url
     end
   end
-
-
 
 
 end
